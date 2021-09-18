@@ -36,7 +36,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Formulario de Registro!!!</h1>
+    <h1>Formulario de Registro</h1>
     <div class="forma">
         <form name="myForm" action="getRegistrarse.php" method="POST">
             <!-- CAMPO NOMBRE -->
