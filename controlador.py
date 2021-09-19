@@ -1,5 +1,5 @@
-from include.VO import EmpleadoVO
 from flask import Flask, app, render_template, json, request, redirect
+from include.VO import EmpleadoVO
 from include.DAO import EmpleadoDAO
 
 app = Flask(__name__, static_url_path='', static_folder='static/')
@@ -44,11 +44,11 @@ def registrarse_2():
         DAO= EmpleadoDAO()            
         data=request.form
         print(data)
-        VO= EmpleadoVO( data['nombrecompleto'], data['email'], data['password'], data['tel'], data['empresa'])
+        VO = EmpleadoVO( data['nombrecompleto'], data['email'], data['password'], data['tel'], data['empresa'])
         #VO.setEmpleado( data['nombrecompleto'], data['email'], data['password'], data['tel'], data['empresa'])
-        DAO.insertALL()
+        DAO.insertALL(VO)
         return {
-            "message": "succeful"
+            "message": "registrarse_2 succeful"
         }    
     except Exception as e:
      return json.dumps({'error':str(e)})       
