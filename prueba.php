@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <link href="css/registrarse.css" rel="stylesheet" type="text/css">
