@@ -1,3 +1,4 @@
+from include.VO import EmpleadoVO
 from flask import Flask, app, render_template, json, request, redirect
 from include.DAO import EmpleadoDAO
 
@@ -37,16 +38,20 @@ def login2():
 def registrarse():
     return render_template("registrarse.html")
 
-#@app.route("/login",methods=["POST"])
-#def login2():
-  #  try:
- #       data=request.form
-   #     print (data)
-        
-  #  except Exception as e:
- #      return json.dumps({'error':str(e)})       
-
-
+@app.route("/registrarse",methods=["POST"])
+def registrarse_2():
+    try:
+        DAO= EmpleadoDAO()            
+        data=request.form
+        print(data)
+        VO= EmpleadoVO( data['nombrecompleto'], data['email'], data['password'], data['tel'], data['empresa'])
+        #VO.setEmpleado( data['nombrecompleto'], data['email'], data['password'], data['tel'], data['empresa'])
+        DAO.insertALL()
+        return {
+            "message": "succeful"
+        }    
+    except Exception as e:
+     return json.dumps({'error':str(e)})       
 
 
 if __name__ == "__main__":

@@ -1,20 +1,18 @@
 class EmpleadoVO:
-    def __init__(self, id, nombre, correo, password, telefono, puesto ):
-        self.__id = id
+    def __init__(self, nombre, correo, password, telefono, empresa ):
         self.__nombre = nombre
         self.__correo = correo
         self.__password = password
         self.__telefono = telefono
-        self.__puesto = puesto
+        self.__empresa = empresa
 
 
-    def setEmpleado(self, id, nombre, correo, password, telefono, puesto ):
-        self.__id = id
+    def setEmpleado(self, nombre, correo, password, telefono,empresa ):        
         self.__nombre = nombre
         self.__correo = correo
         self.__password = password
         self.__telefono = telefono
-        self.__puesto = puesto
+        self.__empresa = empresa
 
     def getId(self):
         return self.__id
@@ -26,5 +24,5 @@ class EmpleadoVO:
         return self.__password
     def getTelefono(self):
         return self.__telefono
-    def getPuesto(self):
-        return self.__puesto   
+    def getEmpresa(self):
+        return self.__empresa  

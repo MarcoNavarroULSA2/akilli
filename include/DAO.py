@@ -22,17 +22,32 @@ class EmpleadoDAO:
         finally: 
             cursor.close()
             conn.close()
+
+            
     def insertALL(self):
         try:
             conn=cnx.mysql.connect()
             cursor=conn.cursor()
             vo = EmpleadoVO()
-            cursor.execute('INSERT INTO Empleado (ID_Empleado, NombreCompleto, Correo,Password, Telefono, Puesto) VALUES(' + vo.getNombre + vo.getCorreo + vo.getPassword + vo.getTelefono + vo.getPuesto+')')
+            query_empleado=("INSERT INTO Empleado" "(NombreCompleto,Telefono, Empresa)" "VALUES(%(NombreCompleto)s,%(Telefono)s,%(Empresa)s)")  
+            query_empleadologin=("INSERT INTO Login_Empleado" "(Correo,Password)" "VALUES(%(Correo)s,%(Password)s)")          
+            values={
+            "NombreCompleto": str(vo.getNombre),
+            "Telefono": str(vo.getTelefono),
+            "Empresa": str(vo.getEmpresa)}
+            valuesLogin={
+            "Correo": str(vo.getCorreo),           
+            "Password": str(vo.getPassword)}
+            cursor.execute(query_empleado,values)
+            cursor.execute(query_empleadologin,valuesLogin)
+            conn.commit()
             return{
                 'message': "succesfull"
             }
         except Exception as e:
             return json.dumps({'error':str(e)})  
         finally: 
+            
             cursor.close()
-            conn.close()        
+            conn.close()    
+
