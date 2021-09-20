@@ -1406,3 +1406,4 @@ entorno/Scripts/pip3.exe
 entorno/Scripts/python.exe
 entorno/Scripts/pythonw.exe
 entorno/
+__pycache__/
