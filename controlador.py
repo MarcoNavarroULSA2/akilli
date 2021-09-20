@@ -1,6 +1,9 @@
 from flask import Flask, app, render_template, json, request, redirect
+
 from include.VO import EmpleadoVO
 from include.DAO import EmpleadoDAO
+from include.LogIn_VO import LogInVO
+from include.LogIn_DAO import LogInDAO
 
 app = Flask(__name__, static_url_path='', static_folder='static/')
 
@@ -27,9 +30,14 @@ def login():
 @app.route("/login",methods=["POST"])
 def login2():
     try:
+        DAO= LogInDAO()  
         data=request.form
-        print (data)
-        
+        VO = LogInVO( data['email'], data['password'])
+        listaVO = DAO.selectALL(VO)
+        print(listaVO.__len__())
+        return {
+            "message": "login2 succeful"
+        }    
     except Exception as e:
        return json.dumps({'error':str(e)})
 
