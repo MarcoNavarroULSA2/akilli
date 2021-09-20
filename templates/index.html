@@ -1,41 +1,551 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <link rel= "stylesheet" href="css/forma.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link rel="shortcut icon" href="images/" type="image/x-icon">
-    <link rel="shortcut icon" href= "images/favicon.jpeg">
-    <div class="lds-ellipsis"><div></div><div></div><div></div>
-    
-   
+
+  <head>
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href= "images/favicon.jpeg">
     <title>AKILLI</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="indiceFiles/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="indiceFiles/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="indiceFiles/assets/css/templatemo-seo-dream.css">
+    <link rel="stylesheet" href="indiceFiles/assets/css/animated.css">
+    <link rel="stylesheet" href="indiceFiles/assets/css/owl.css">
+<!--
+
+TemplateMo 563 SEO Dream
+
+https://templatemo.com/tm-563-seo-dream
+
+-->
+
 </head>
-<body>   
-       
-    <h1 class="centrado">AKILLI</h1>
-    <div class="col-12">     
-          
-        <p class="centrado">BIENVENIDOS</p>	 	    
-       
-        
-        <div class="text-center index-inicio-sesion">        
-            <form action="/login" method="GET">        
-                <button name="iniciar_s" type="submit" class="btn btn-primary"> Iniciar Sesión</button>
-            </form>
-        </div>
 
-        <div class="text-center index-registarse">
-            <form action="/registrarse" method="GET">        
-                <button name="registrarse" type="submit" class="btn btn-primary"> Registrarse</button>
-            </form>
-        </div>
+<body>
 
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <a href="index.html" class="logo">
+              <h4>AKILLI <img src="indiceFiles/assets/images/logo-icon.png" alt=""></h4>
+            </a>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">
+              <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
+              <li class="scroll-to-section"><a href="#features"></a></li>
+              <li class="scroll-to-section"><a href="#about">Sobre Nosotros</a></li>
+              <li class="scroll-to-section"><a href="#services">Services</a></li>
+              <li class="scroll-to-section"><a href="#portfolio">Portfolio</a></li>
+            </ul>        
+            <a class='menu-trigger'>
+                <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- ***** Header Area End ***** -->
+
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6 align-self-center">
+              <div class="left-content header-text wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1s">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h2>Se una de las personas en probar Akilli, ¡Comienza ahora! </h2>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="main-green-button scroll-to-section">
+                      <form action="/login" method="GET">  
+                        <button name="iniciar_s" type="submit" class=""> Iniciar Sesión</button>
+                      </form>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="main-green-button scroll-to-section">
+                      <form action="/registrarse" method="GET">        
+                        <button name="registrarse" type="submit" class=""> Registrarse</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+                <img src="indiceFiles/assets/images/banner-right-image.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="features" class="features section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="features-content">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="features-item first-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s">
+                  <div class="first-number number">
+                    <h6>01</h6>
+                  </div>
+                  <div class="icon"></div>
+                  <h4>Administración y control</h4>
+                  <div class="line-dec"></div>
+                  <p>Mantén los datos de la organización en un lugar seguro y gestionalos a través de una amplia gama de funcionalidades.</p>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="features-item second-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+                  <div class="second-number number">
+                    <h6>02</h6>
+                  </div>
+                  <div class="icon"></div>
+                  <h4>Control Automatico de versiones</h4>
+                  <div class="line-dec"></div>
+                  <p>Conserva la última versión de archivos y guarda versiones anteriores en caso de requerirlas.</p>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="features-item first-feature wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+                  <div class="third-number number">
+                    <h6>03</h6>
+                  </div>
+                  <div class="icon"></div>
+                  <h4>Trabajo en equipo colaborativo</h4>
+                  <div class="line-dec"></div>
+                  <p>Comparte documentos al instante y accede a tu información, todo desde un mismo lugar. <a rel="nofollow" href="https://www.paypal.me/templatemo" target="_blank"></a> </p>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="features-item second-feature last-features-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+                  <div class="fourth-number number">
+                    <h6>04</h6>
+                  </div>
+                  <div class="icon"></div>
+                  <h4>Analyze the result</h4>
+                  <div class="line-dec"></div>
+                  <p>Below circular progress bar animation supports those CSS values 10, 20, 30, till 100.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="skills-content">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0s">
+                  <div class="progress" data-percentage="80">
+                    <span class="progress-left">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <span class="progress-right">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <div class="progress-value">
+                      <div>
+                        80%<br>
+                        <span>Reduce tiempo </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                  <div class="progress" data-percentage="60">
+                    <span class="progress-left">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <span class="progress-right">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <div class="progress-value">
+                      <div>
+                        60%<br>
+                        <span>Wordpress</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+                  <div class="progress" data-percentage="90">
+                    <span class="progress-left">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <span class="progress-right">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <div class="progress-value">
+                      <div>
+                        90%<br>
+                        <span>Encuentra facilmente el contenido</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <div class="skill-item last-skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
+                  <div class="progress" data-percentage="70">
+                    <span class="progress-left">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <span class="progress-right">
+                      <span class="progress-bar"></span>
+                    </span>
+                    <div class="progress-value">
+                      <div>
+                        70%<br>
+                        <span>Photoshop</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="about" class="about-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="left-image wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.5s">
+            <img src="indiceFiles/assets/images/about-left-image.png" alt="">
+          </div>
+        </div>
+        <div class="col-lg-6 align-self-center wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
+          <div class="section-heading">
+            <h6>Sobre Nosotros</h6>
+            <h2>Top <em>marketing</em> agency &amp; consult your website <span>with us</span></h2>
+          </div>
+          <div class="row">
+            <div class="col-lg-4 col-sm-4">
+              <div class="about-item">
+                <h4>750+</h4>
+                <h6>eficiencia</h6>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-4">
+              <div class="about-item">
+                <h4>340+</h4>
+                <h6>Clientes felicies</h6>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-4">
+              <div class="about-item">
+                <h4>128+</h4>
+                <h6>Logros</h6>
+              </div>
+            </div>
+          </div>
+          <p><a rel="nofollow" href="https://templatemo.com/tm-563-seo-dream" target="_parent"></a> Te presentamos el espacio ideal para compartir tu mundo digital entre compañeros de trabajo.</p>
+          <div class="main-green-button"><a href="#">Descubre</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="services" class="our-services section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+            <h6>Nuestro servicio</h6>
+            <h2>Opinion de los clientes</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="icon">
+                  <img src="indiceFiles/assets/images/service-icon-01.png" alt="">
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="right-content">
+                  <h4>SusanaGomez@hotmail.com</h4>
+                  <p>Gracias a esto, ya no tengo que preocuparme por ordenar mis minutas.Todos mis archivos estan en AKilli y puedo acceder a ellos este donde este.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="icon">
+                  <img src="indiceFiles/assets/images/service-icon-02.png" alt="">
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="right-content">
+                  <h4>Website Trends</h4>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="icon">
+                  <img src="indiceFiles/assets/images/service-icon-03.png" alt="">
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="right-content">
+                  <h4>RaquelMota45SH@gmail.com</h4>
+                  <p>Akilli esta revolucionando la colaboracion y productividad indivial mediante la inteligencia artificial</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="icon">
+                  <img src="indiceFiles/assets/images/service-icon-03.png" alt="">
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="right-content">
+                  <h4>Optimizing Keywords</h4>
+                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.7s">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="icon">
+                  <img src="indiceFiles/assets/images/service-icon-01.png" alt="">
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="right-content">
+                  <h4>DiegoCarrillos@gmail.com</h4>
+                  <p>Intuitivo y facil de usar, por lo que la gestion del cambio fue buena y nos pusimos en marcha enseguida.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.8s">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="icon">
+                  <img src="indiceFiles/assets/images/service-icon-02.png" alt="">
+                </div>
+              </div>
+              <div class="col-lg-8">
+                <div class="right-content">
+                  <h4>Alanortiz345@ghotmail.com</h4>
+                  <p>Poder dejar comentarios no simplifico la comunicacion</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="portfolio" class="our-portfolio section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+            <h6>Our Portofolio</h6>
+            <h2>Discover Our Recent <em>Projects</em> And <span>Showcases</span></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="loop owl-carousel">
+            <div class="item">
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-01.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 101</h4></a>
+                      <span>Marketing</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-04.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 102</h4></a>
+                      <span>Branding</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-02.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 103</h4></a>
+                      <span>Consulting</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-05.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 104</h4></a>
+                      <span>Artwork</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-03.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 105</h4></a>
+                      <span>Branding</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-06.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 106</h4></a>
+                      <span>Artwork</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item">
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-04.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 107</h4></a>
+                      <span>Creative</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="portfolio-item">
+                <div class="thumb">
+                  <img src="indiceFiles/assets/images/portfolio-01.jpg" alt="">
+                  <div class="hover-content">
+                    <div class="inner-content">
+                      <a href="#"><h4>Awesome Project 108</h4></a>
+                      <span>Consulting</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          
+          
+          <br>Web Designed by <a rel="nofollow" href="https://templatemo.com" title="free CSS templates">TemplateMo</a></p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="indiceFiles/vendor/jquery/jquery.min.js"></script>
+  <script src="indiceFiles/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="indiceFiles/assets/js/owl-carousel.js"></script>
+  <script src="indiceFiles/assets/js/animation.js"></script>
+  <script src="indiceFiles/assets/js/imagesloaded.js"></script>
+  <script src="indiceFiles/assets/js/custom.js"></script>
+
 </body>
 </html>
