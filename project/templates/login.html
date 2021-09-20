@@ -28,12 +28,19 @@
 					<form action="/login" method="POST" class="login-form">
 					<!--Username-->
 		      		<div class="form-group">
-		      			<input type="email" class="form-control rounded-left" placeholder="Email" name= "email" required>
+		      			<input type="email" class="form-control rounded-left" placeholder="Email" name= "email" id="email" required>
 		      		</div>
 					  <!--Password-->
 					<div class="form-group d-flex">
-						<input type="password" class="form-control rounded-left" placeholder="Password" name= "password" required>
+						<input type="password" class="form-control rounded-left" placeholder="Password" name= "password" id="password" required>
 					</div>
+					<p>
+						{% if msg %}
+							{{ msg | safe }}
+						{% else %}
+							
+						{% endif %}                                     
+					</p> 
 					<div class="form-group d-md-flex">
 						<div class="w-50">
 							<label class="checkbox-wrap checkbox-primary">Remember Me
