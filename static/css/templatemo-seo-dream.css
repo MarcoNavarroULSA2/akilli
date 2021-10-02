@@ -227,7 +227,7 @@ body {
   border-bottom: 2px solid #4771cb!important;
 }
 
-.main-green-button a {
+.main-green-button a, .main-green-button button {
   display: inline-block;
   background-color: #33ccc5;
   font-size: 15px;
@@ -241,7 +241,7 @@ body {
   transition: all .3s;
 }
 
-.main-green-button a:hover {
+.main-green-button a:hover, .main-green-button button:hover {
   background-color: #4771cb!important;
   color: #fff!important;
   border-bottom: 2px solid #33ccc5!important;

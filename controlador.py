@@ -1,4 +1,4 @@
-from flask import Flask, app, render_template, json, request, redirect
+from flask import Flask, app, render_template, json, request, redirect, url_for
 
 from include.EmpleadoVO import EmpleadoVO
 from include.EmpleadoDAO import EmpleadoDAO
@@ -27,21 +27,22 @@ def iniciar():
 
 @app.route("/login")
 def login():
-    return render_template("index_login.html")
+    return render_template("login.html")
 
 @app.route("/login",methods=["POST"])
 def login2():
-    try:
-        DAO= LogInDAO()  
-        data=request.form
-        VO = LogInVO(99,data['email'], data['password'],'' )
-        listaVO = DAO.selectALL(VO)
-        print(listaVO.__len__())
-        return {
-            "message": "login2 succeful"
-        }    
-    except Exception as e:
-       return json.dumps({'error':str(e)})
+    #try:
+    DAO= LogInDAO()  
+    data=request.form
+    VO = LogInVO(99,data['email'], data['password'],'' )
+    listaVO = DAO.selectALL(VO)
+    #print(listaVO.__len__())
+    if listaVO.__len__() == 0:
+        return render_template('login.html', msg='Wrong user or password')
+    
+    return redirect(url_for('main.menu'))
+    #except Exception as e:
+     #  return json.dumps({'error':str(e)})
 
 
 @app.route("/registrarse")
@@ -64,9 +65,7 @@ def registrarse_2():
         VO = EmpleadoVO(99, data['nombrecompleto'], data['email'], data['tel'], data['empresa'], mensaje['id']) 
         #print("Va el Empleado con id "+ str(VO.getIdLogin()))
         DAOE.insert(VO)
-        return {
-            "message": "registrarse_2 succeful"
-        }    
+        return redirect(url_for('login'))
     except Exception as e:
      return json.dumps({'error':str(e)})       
 
