@@ -69,6 +69,10 @@ def registrarse_2():
     except Exception as e:
      return json.dumps({'error':str(e)})       
 
+@app.route("/menu")
+def menu():
+    return render_template("dashboard/menu.html")
+    
 
 if __name__ == "__main__":
     app.run()
