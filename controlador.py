@@ -40,7 +40,7 @@ def login2():
     if listaVO.__len__() == 0:
         return render_template('login.html', msg='Wrong user or password')
     
-    return redirect(url_for('main.menu'))
+    return redirect(url_for('menu'))
     #except Exception as e:
      #  return json.dumps({'error':str(e)})
 
@@ -72,6 +72,10 @@ def registrarse_2():
 @app.route("/menu")
 def menu():
     return render_template("dashboard/menu.html")
+
+@app.route("/settings")
+def settings():
+    return render_template("settings.html")
     
 
 if __name__ == "__main__":
