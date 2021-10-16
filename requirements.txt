@@ -3,3 +3,4 @@ flask-mysql
 gunicorn
 flask_login
 sendmail
+azure-ai-textanalytics==5.1.0
