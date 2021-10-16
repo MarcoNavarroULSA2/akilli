@@ -78,6 +78,11 @@ def menu():
 def settings():
     return render_template("settings.html")
 
+
+@app.route("/CrearMinuta")
+def Minuta():
+    return render_template("CrearMinuta.html")
+
 @app.route("/recuperarc",methods=["POST", "GET"])
 def recuperar():
     if request.method== "POST":
