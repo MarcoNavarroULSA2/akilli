@@ -63,7 +63,7 @@ def registrarse_2():
         mensaje=DAOL.insert(VO2)
         #print("Mensaje")
         #print(mensaje['id'])
-        VO = EmpleadoVO(99, data['nombrecompleto'], data['email'], data['tel'], data['empresa'], mensaje['id']) 
+        VO = EmpleadoVO(99, data['nombrecompleto'], data['email'], data['tel'], data['empresa'], mensaje['id'], data['departamento']) 
         #print("Va el Empleado con id "+ str(VO.getIdLogin()))
         DAOE.insert(VO)
         return redirect(url_for('login'))
