@@ -1,19 +1,23 @@
 class EmpleadoVO:
-    def __init__(self, id, nombre, correo, telefono, empresa, idlogin ):
+    def __init__(self, id, nombre, correo, telefono, empresa, idlogin, departamento ):
         self.__id = id
         self.__nombre = nombre
         self.__correo = correo
         self.__telefono = telefono
         self.__empresa = empresa
         self.__idlogin = idlogin
+        self.__departamento = departamento
 
-    def setAll(self, id, nombre, correo, telefono,empresa, idlogin ):        
+
+    def setAll(self, id, nombre, correo, telefono,empresa, idlogin, departamento ):        
         self.__id = id
         self.__nombre = nombre
         self.__correo = correo
         self.__telefono = telefono
         self.__empresa = empresa
         self.__idlogin = idlogin
+        self.__departamento = departamento
+
 
     def getId(self):
         return self.__id
@@ -27,3 +31,5 @@ class EmpleadoVO:
         return self.__empresa  
     def getIdLogin(self):
         return self.__idlogin
+    def getDepartamento(self):
+        return self.__departamento

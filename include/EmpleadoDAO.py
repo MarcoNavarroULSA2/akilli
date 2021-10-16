@@ -31,12 +31,13 @@ class EmpleadoDAO:
         try:
             conn=cnx.mysql.connect()
             cursor=conn.cursor()
-            consulta=("INSERT INTO Empleado (Nombre, Telefono, Empresa, ID_LoginEmpleado)" "VALUES(%s,%s,%s,%s)")          
+            consulta=("INSERT INTO Empleado (Nombre, Telefono, Empresa, ID_LoginEmpleado, departamento)" "VALUES(%s,%s,%s,%s,%s)")          
             valores=(
             vo.getNombre(),
             vo.getTelefono(),
             vo.getEmpresa(),
-            vo.getIdLogin()
+            vo.getIdLogin(),
+            vo.getDepartamento()
             )
             cursor.execute(consulta, valores)
             conn.commit()
