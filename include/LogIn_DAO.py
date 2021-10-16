@@ -43,4 +43,22 @@ class LogInDAO:
             return json.dumps({'error':str(e)})  
         finally: 
             cursor.close()
-            conn.close()    
+            conn.close()  
+
+    def existecorreo(self, vo):
+        try:
+            conn=cnx.mysql.connect()
+            cursor=conn.cursor()
+            query_select=('SELECT Correo FROM Login_Empleado WHERE Correo = %s LIMIT 1') 
+            values=(vo.getCorreo()) 
+            cursor.execute(query_select, values)
+            data=cursor.fetchall()
+            bandera= False 
+            if len(data)> 0:
+                bandera= True 
+            return bandera              
+        except Exception as e:
+            return json.dumps({'error':str(e)})
+        finally: 
+            cursor.close()
+            conn.close()          

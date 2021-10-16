@@ -2,3 +2,4 @@ flask
 flask-mysql
 gunicorn
 flask_login
+sendmail

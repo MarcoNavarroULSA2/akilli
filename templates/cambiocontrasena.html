@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  	<title>login</title>
+  	<title>Cambiar contrasena</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Login</h2>
+					<h2 class="heading-section">Cambio de contrasena</h2>
 				</div>
 			</div>
 			<div class="row justify-content-center">
@@ -24,34 +24,24 @@
 		      	<div class="icon d-flex align-items-center justify-content-center">
 		      		<span class="fa fa-user-o"></span>
 		      	</div>
-		      	<h3 class="text-center mb-4">Bienvenido</h3>
-					<form action="/login" method="POST" class="login-form">
+		      	<h3 class="text-center mb-4">Ingresa la nueva contrasena</h3>
+					<form action="/resetpassword" method="POST" class="login-form">
 					<!--Username-->
-		      		<div class="form-group">
-		      			<input type="email" class="form-control rounded-left" placeholder="Email" name= "email" id="email" required>
-		      		</div>
-					  <!--Password-->
-					<div class="form-group d-flex">
-						<input type="password" class="form-control rounded-left" placeholder="Password" name= "password" id="password" required>
+                    <div class="form-group d-flex">
+						<input type="password" class="form-control rounded-left" placeholder="Password" name= "password1" id="password1" required= true>
 					</div>
+
+                    <div class="form-group d-flex">
+						<input type="password" class="form-control rounded-left" placeholder="Password" name= "password2" id="password2" required= true>
+					</div>
+										
 					<p>
 						{% if msg %}
 							{{ msg | safe }}
 						{% else %}
 							
 						{% endif %}                                     
-					</p> 
-					<div class="form-group d-md-flex">
-						<div class="w-50">
-							<label class="checkbox-wrap checkbox-primary">Remember Me
-										<input type="checkbox" checked>
-										<span class="checkmark"></span>
-										</label>
-									</div>
-									<div class="w-50 text-md-right">
-										<a href="/recuperarc">Forgot Password</a>									
-									</div>
-					</div>
+					</p> 	
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary rounded submit p-3 px-5">aceptar</button>
 					</div>

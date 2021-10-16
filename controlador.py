@@ -5,13 +5,14 @@ from include.EmpleadoDAO import EmpleadoDAO
 from include.LogIn_VO import LogInVO
 from include.LogIn_DAO import LogInDAO
 import uuid, hashlib
+import smtplib 
 
 app = Flask(__name__, static_url_path='')
 app.static_folder = 'static'
 
 @app.route("/")
 def index():
-    return "<h1>Inicio MVC</h1>"
+    return render_template("index.html")
 
 @app.route("/index")
 def iniciar():
@@ -76,6 +77,65 @@ def menu():
 @app.route("/settings")
 def settings():
     return render_template("settings.html")
+
+@app.route("/recuperarc",methods=["POST", "GET"])
+def recuperar():
+    if request.method== "POST":
+        print("")
+        #RECUPERAR CONTRASENA
+        #recuperar correo del usuario    
+        _correo= request.form["email"] 
+        print(_correo)
+        _DAO= LogInDAO()
+        _VO= LogInVO(99, _correo,"","")      
+        _bandera= _DAO.existecorreo(_VO)
+        if _bandera:
+            remitente = "Desde gnucita <ebahit@member.fsf.org>" 
+            destinatario = "edianadecm.9@gmail.com"
+            asunto = "E-mal HTML enviado desde Python" 
+            mensaje = """Hola!<br/> <br/> 
+            Este es un <b>e-mail</b> enviando desde <b>Python</b> 
+            """
+
+            email = """From: %s 
+            To: %s 
+            MIME-Version: 1.0 
+            Content-type: text/html 
+            Subject: %s 
+
+            %s
+            """ % (remitente, destinatario, asunto, mensaje) 
+            try: 
+                smtp = smtplib.SMTP('localhost') 
+                smtp.sendmail(remitente, destinatario, email) 
+                print("Correo enviado")
+            except: 
+                print("""Error: el mensaje no pudo enviarse. 
+                Compruebe que sendmail se encuentra instalado en su sistema""")
+
+        #buscar correo en BD/smpt nemonico
+        #si lo encuentro, 
+        #enviar correo con la liga de la forma/heroku/ variable(_correo) tenga el correo/
+        #otra forma/permite restablecer contrasena 
+        #si no existe
+
+        return render_template("recuperar.html",  msg='Si tu usuario existe, revisa tu correo')  
+    else: 
+        return render_template("recuperar.html")  
+
+
+@app.route("/resetpassword",methods=["POST", "GET"])
+def resetpassword():
+    if request.method == "POST":
+        #recuperar contra 1 y 2(forma), argscorreo/url
+        #validar que sean iguales
+        #si son iguales cambiar password/ DAO actualizar password
+        #si no, mostrar error 
+        
+     return render_template("cambiocontrasena.html")    
+    else:
+     return render_template("cambiocontrasena.html")    
+
     
 
 if __name__ == "__main__":
