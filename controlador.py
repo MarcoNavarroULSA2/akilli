@@ -1,4 +1,4 @@
-from flask import Flask, app, render_template, json, request, redirect, url_for
+from flask import Flask, app, render_template, json, request, redirect, url_for, session
 
 from include.EmpleadoVO import EmpleadoVO
 from include.EmpleadoDAO import EmpleadoDAO
@@ -6,9 +6,26 @@ from include.LogIn_VO import LogInVO
 from include.LogIn_DAO import LogInDAO
 import uuid, hashlib
 import smtplib 
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__, static_url_path='')
+app.secret_key = "1234"
 app.static_folder = 'static'
+
+
+def checarusuario():
+ try:
+    user = session["user"]
+    auth = session["auth"]
+ except:
+    user = "unknown"
+    auth = 0
+    return auth
+    
+
+@app.before_request
+def session_management():
+  session.permanent = True
 
 @app.route("/")
 def index():
@@ -36,11 +53,17 @@ def login2():
     DAO= LogInDAO()  
     data=request.form
     VO = LogInVO(99,data['email'], data['password'],'' )
-    listaVO = DAO.selectALL(VO)
+    listaVO = DAO.selectALL(VO)    
+    #print(listaVO[2] +"este es el cero")
+    print(listaVO)    
+    checarContra = check_password_hash (listaVO[1],data['password'] )
     #print(listaVO.__len__())
-    if listaVO.__len__() == 0:
+    if listaVO.__len__() == 0 or checarContra == False:
         return render_template('login.html', msg='Wrong user or password')
     
+    session.clear()
+    session["user"] = listaVO[0]
+    session["auth"] = 1
     return redirect(url_for('menu'))
     #except Exception as e:
      #  return json.dumps({'error':str(e)})
@@ -55,10 +78,14 @@ def registrarse_2():
     try:
         DAOE = EmpleadoDAO()
         DAOL = LogInDAO()            
-        data=request.form
+        data=request.form        
         print(data)
+        contrasena=data ['password']
         sal = uuid.uuid4().hex
-        VO2 = LogInVO(99, data['email'], data['password'], sal)
+        pimienta = "SEGURIDAD1235"        
+        contraHash = generate_password_hash(contrasena, method= "sha256")
+        print(contraHash)
+        VO2 = LogInVO(99, data['email'], contraHash, sal)        
         #VO.setEmpleado( data['nombrecompleto'], data['email'], data['password'], data['tel'], data['empresa'])
         mensaje=DAOL.insert(VO2)
         #print("Mensaje")
@@ -72,15 +99,24 @@ def registrarse_2():
 
 @app.route("/menu")
 def menu():
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))    
     return render_template("dashboard/menu.html")
 
 @app.route("/settings")
 def settings():
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))
     return render_template("settings.html")
 
 
 @app.route("/CrearMinuta")
 def Minuta():
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))
     return render_template("CrearMinuta.html")
 
 @app.route("/recuperarc",methods=["POST", "GET"])

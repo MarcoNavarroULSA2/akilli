@@ -10,14 +10,15 @@ class LogInDAO:
         try:
             conn=cnx.mysql.connect()
             cursor=conn.cursor()
-            query_select=('SELECT Correo, Password FROM Login_Empleado WHERE Correo = %s AND Password = %s') 
-            values=(empleado.getCorreo(), empleado.getPassword()) 
+            query_select=('SELECT Correo, Password FROM Login_Empleado WHERE Correo = %s') 
+            values=(empleado.getCorreo()) 
             cursor.execute(query_select, values)
             data=cursor.fetchall()
             listaVO=[]
             for fila in data:
-                vo = LogInVO(fila[0], fila[1])
-                listaVO.append(vo)
+                #vo = LogInVO("", fila[0], fila[1], "")
+                listaVO.append(fila[0])
+                listaVO.append(fila[1])
             return listaVO
         except Exception as e:
             return json.dumps({'error':str(e)})
