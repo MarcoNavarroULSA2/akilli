@@ -16,11 +16,12 @@ app.static_folder = 'static'
 def checarusuario():
  try:
     user = session["user"]
-    auth = session["auth"]
+    auth = session["auth"] 
+    return auth, user
  except:
     user = "unknown"
     auth = 0
-    return auth
+    return auth, user
     
 
 @app.before_request
@@ -99,10 +100,11 @@ def registrarse_2():
 
 @app.route("/menu")
 def menu():
-    auth = checarusuario() 
+    auth, user = checarusuario()
+    print (auth)
     if auth == 0:
-        return redirect(url_for('login'))    
-    return render_template("dashboard/menu.html")
+        return redirect(url_for('login'))        
+    return render_template("dashboard/menu.html", user = user)
 
 @app.route("/settings")
 def settings():
@@ -178,6 +180,15 @@ def resetpassword():
      return render_template("cambiocontrasena.html")    
 
     
+@app.route("/logout")
+def logout():
+  session.clear()
+  session["user"] = "unknown"
+  session["auth"] = 0
+  return redirect(url_for('index'))
+
+
+
 
 if __name__ == "__main__":
     app.run()
