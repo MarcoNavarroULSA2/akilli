@@ -1,17 +1,25 @@
 from flask import Flask, app, render_template, json, request, redirect, url_for, session
 
+from include.MinutaVO import MinutaVO
+from include.MinutaDAO import MinutaDAO
 from include.EmpleadoVO import EmpleadoVO
 from include.EmpleadoDAO import EmpleadoDAO
 from include.LogIn_VO import LogInVO
 from include.LogIn_DAO import LogInDAO
+import datetime
 import uuid, hashlib
 import smtplib 
+import json
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__, static_url_path='')
 app.secret_key = "1234"
 app.static_folder = 'static'
 
+def getEmpleadoInfo():
+    empleadoJson = session["user_info"]
+    empleado_object = json.loads(empleadoJson)
+    return empleado_object
 
 def checarusuario():
  try:
@@ -55,15 +63,23 @@ def login2():
     data=request.form
     VO = LogInVO(99,data['email'], data['password'],'' )
     listaVO = DAO.selectALL(VO)    
-    #print(listaVO[2] +"este es el cero")
-    print(listaVO)    
-    checarContra = check_password_hash (listaVO[1],data['password'] )
+    
+    usuario = listaVO[0]
+    
+    checarContra = check_password_hash (usuario.getPassword(), data['password'] )
     #print(listaVO.__len__())
     if listaVO.__len__() == 0 or checarContra == False:
         return render_template('login.html', msg='Wrong user or password')
     
+    #Traer info usuario
+    empleadoDAO = EmpleadoDAO() 
+    empleadosLista = empleadoDAO.finUser(usuario.getId())
+    empleado = empleadosLista[0]
+    empleadoJson = json.dumps(empleado.__dict__)
+    
     session.clear()
-    session["user"] = listaVO[0]
+    session["user"] = usuario.getCorreo()
+    session["user_info"] = empleadoJson
     session["auth"] = 1
     return redirect(url_for('menu'))
     #except Exception as e:
@@ -104,7 +120,7 @@ def menu():
     print (auth)
     if auth == 0:
         return redirect(url_for('login'))        
-    return render_template("dashboard/menu.html", user = user)
+    return render_template("dashboard/menu.html",  nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])  
 
 @app.route("/settings")
 def settings():
@@ -113,13 +129,53 @@ def settings():
         return redirect(url_for('login'))
     return render_template("settings.html")
 
+@app.route("/minutas")
+def minutas():
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))
+    try:
+        minutaDAO = MinutaDAO()       
+        listado=minutaDAO.getMinutas()      
+        print('Len')
+        print(listado.__len__())
+        print(listado[0]) 
+        return render_template("minutas.html", minutas=listado, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])
+    except Exception as e:
+     return json.dumps({'error':str(e)}) 
+    
+@app.route("/minuta")
+def minuta():
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))
+    id = request.args.get('id', '')    
+    minutaDAO = MinutaDAO()       
+    listado=minutaDAO.getMinuta(id)      
+    minuta=listado[0]
+    return render_template("minuta.html",minuta=minuta) 
 
 @app.route("/CrearMinuta")
 def Minuta():
     auth = checarusuario() 
     if auth == 0:
         return redirect(url_for('login'))
-    return render_template("CrearMinuta.html")
+    return render_template("CrearMinuta.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])
+
+@app.route("/CrearMinuta",methods=["POST"])
+def crearMinuta_2():
+    try:
+        minutaDAO = MinutaDAO()       
+        data=request.form        
+        empleadoJson = session["user_info"]
+        empleado_object = json.loads(empleadoJson)
+        
+        VO = MinutaVO(1, data['nombreMinuta'], data['texto'], empleado_object['_EmpleadoVO__nombre'], datetime.datetime.now()) 
+        #print("Va el Empleado con id "+ str(VO.getIdLogin()))
+        minutaDAO.insert(VO)
+        return redirect(url_for('menu'))
+    except Exception as e:
+     return json.dumps({'error':str(e)})      
 
 @app.route("/recuperarc",methods=["POST", "GET"])
 def recuperar():
