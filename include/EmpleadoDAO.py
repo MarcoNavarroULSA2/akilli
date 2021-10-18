@@ -1,6 +1,7 @@
 from flask import json
 import include.conexion as cnx 
 from include.EmpleadoVO import EmpleadoVO
+from include.LogIn_VO import LogInVO
 
 class EmpleadoDAO:
     def __init__(self):

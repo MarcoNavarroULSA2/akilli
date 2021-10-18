@@ -11,6 +11,7 @@ import uuid, hashlib
 import smtplib 
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
+from key import key_phrase_extraction_example, authenticate_client
 
 app = Flask(__name__, static_url_path='')
 app.secret_key = "1234"
@@ -169,8 +170,11 @@ def crearMinuta_2():
         data=request.form        
         empleadoJson = session["user_info"]
         empleado_object = json.loads(empleadoJson)
+        texto = data["texto"]
+        cliente = authenticate_client()
+        frases = key_phrase_extraction_example(cliente, texto)
         
-        VO = MinutaVO(1, data['nombreMinuta'], data['texto'], empleado_object['_EmpleadoVO__nombre'], datetime.datetime.now()) 
+        VO = MinutaVO(1, data['nombreMinuta'], data['texto'], empleado_object['_EmpleadoVO__nombre'], datetime.datetime.now(), frases) 
         #print("Va el Empleado con id "+ str(VO.getIdLogin()))
         minutaDAO.insert(VO)
         return redirect(url_for('menu'))
