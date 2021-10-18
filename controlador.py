@@ -19,6 +19,11 @@ app = Flask(__name__, static_url_path='')
 app.secret_key = "1234"
 app.static_folder = 'static'
 
+def esAdministrador():
+    departamento = getEmpleadoInfo()["_EmpleadoVO__departamento"]
+    return departamento == "Admin" 
+
+
 def getEmpleadoInfo():
     empleadoJson = session["user_info"]
     empleado_object = json.loads(empleadoJson)
@@ -126,15 +131,15 @@ def menu():
     auth, user = checarusuario()
     print (auth)
     if auth == 0:
-        return redirect(url_for('login'))        
-    return render_template("dashboard/menu.html",  nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])  
+        return redirect(url_for('login'))    
+    return render_template("dashboard/menu.html",  nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador())  
 
 @app.route("/settings")
 def settings():
     auth = checarusuario() 
     if auth == 0:
         return redirect(url_for('login'))
-    return render_template("settings.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], empleado=getEmpleadoInfo())
+    return render_template("settings.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], empleado=getEmpleadoInfo(), admin = esAdministrador())
 
 @app.route("/settings",methods=["POST"])
 def settings_2():
@@ -166,7 +171,7 @@ def minutas():
         print('Len')
         print(listado.__len__())
         #print(listado[0]) 
-        return render_template("minutas.html", minutas=listado, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])
+        return render_template("minutas.html", minutas=listado, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador())
     except Exception as e:
      return json.dumps({'error':str(e)}) 
     
@@ -179,14 +184,14 @@ def minuta():
     minutaDAO = MinutaDAO()       
     listado=minutaDAO.getMinuta(id)      
     minuta=listado[0]
-    return render_template("minuta.html",minuta=minuta, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"]) 
+    return render_template("minuta.html",minuta=minuta, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador()) 
 
 @app.route("/CrearMinuta")
 def Minuta():
     auth = checarusuario() 
     if auth == 0:
         return redirect(url_for('login'))
-    return render_template("CrearMinuta.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])
+    return render_template("CrearMinuta.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador())
 
 @app.route("/CrearMinuta",methods=["POST"])
 def crearMinuta_2():
@@ -208,7 +213,26 @@ def crearMinuta_2():
         eventoDAO.insertEvento(eventoVO)
         return redirect(url_for('menu'))
     except Exception as e:
-     return json.dumps({'error':str(e)})      
+     return json.dumps({'error':str(e)})  
+
+@app.route("/administracionDepartamento")
+def administracionDepartamento():
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))
+    try:
+        departamento = getEmpleadoInfo()["_EmpleadoVO__departamento"]
+        usuario = getEmpleadoInfo()
+        print (usuario)
+        print (departamento)
+        minutaDAO = MinutaDAO()         
+        listado=minutaDAO.selectALL()  
+        print('Len')
+        print(listado.__len__())
+        #print(listado[0]) 
+        return render_template("administracionDepartamento.html", minutas=listado, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = departamento == "Admin")
+    except Exception as e:
+     return json.dumps({'error':str(e)}) 
 
 @app.route("/recuperarc",methods=["POST", "GET"])
 def recuperar():

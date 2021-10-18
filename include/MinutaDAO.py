@@ -69,5 +69,26 @@ class MinutaDAO:
             return json.dumps({'error':str(e)})  
         finally: 
             cursor.close()
-            conn.close()    
+            conn.close()   
+
+
+    def selectALL(self):
+        try:
+            print('selectALL')
+            conn=cnx.mysql.connect()
+            cursor=conn.cursor()
+            query_select=('SELECT id, nombreMinuta, texto, nombreCreador, fechaCreacion, frases, departamento FROM Minutas') 
+            cursor.execute(query_select)
+            data=cursor.fetchall()
+            listaVO=[]
+            for fila in data:
+                vo = MinutaVO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6])
+                listaVO.append(vo)
+            return listaVO
+        except Exception as e:
+            return json.dumps({'error':str(e)})
+        finally: 
+            cursor.close()
+            conn.close()
+
 

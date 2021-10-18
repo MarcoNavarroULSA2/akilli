@@ -17,7 +17,7 @@
 -->
 <!DOCTYPE html>
 <html lang="en">
-  <link rel="shortcut icon" href="{{ url_for('static', filename='ROBOT.ico') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='ROBOT.ico') }}">
 
 <head> 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -127,7 +127,7 @@
       <li class="nav-item ">
         <a href="/CrearMinuta" class="nav-link">
           <span class="sidebar-icon">
-            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="note-sticky" class= "icon icon-xs me-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32h-352C21.49 32 0 53.49 0 80v352C0 458.5 21.49 480 48 480h245.5c16.97 0 33.25-6.744 45.26-18.75l90.51-90.51C441.3 358.7 448 342.5 448 325.5V80C448 53.49 426.5 32 400 32zM64 96h320l-.001 224H320c-17.67 0-32 14.33-32 32v64H64V96z"></path></svg>
+            <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="note-sticky" class="icon icon-xs me-2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M400 32h-352C21.49 32 0 53.49 0 80v352C0 458.5 21.49 480 48 480h245.5c16.97 0 33.25-6.744 45.26-18.75l90.51-90.51C441.3 358.7 448 342.5 448 325.5V80C448 53.49 426.5 32 400 32zM64 96h320l-.001 224H320c-17.67 0-32 14.33-32 32v64H64V96z"></path></svg>
           </span>
           <span class="sidebar-text">Crear Minuta</span>
         </a>
@@ -140,7 +140,6 @@
           <span class="sidebar-text">Minutas</span>
         </a>
       </li>     
-      {% if admin == true %}
       <li class="nav-item ">
         <a href="/administracionDepartamento" class="nav-link">
           <span class="sidebar-icon">
@@ -148,9 +147,7 @@
           </span>
           <span class="sidebar-text">Administración Departamentos</span>
         </a>
-      </li> 
-								
-							{% endif %}   
+      </li>  
       <li class="nav-item ">
         <a href="/settings" class="nav-link">
           <span class="sidebar-icon">
@@ -164,6 +161,7 @@
       
       
       <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>   
+      
       
     
     </ul>
@@ -320,7 +318,7 @@
               Support
             </a>
             <div role="separator" class="dropdown-divider my-1"></div>
-            <a class="dropdown-item d-flex align-items-center" href="/logout">
+            <a class="dropdown-item d-flex align-items-center"  href="/logout">
               <svg class="dropdown-icon text-danger me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>                
               Logout
             </a>
@@ -336,34 +334,63 @@
             <div class="row">
                 <div class="col-12 col-xl-12">
                     <div class="card card-body border-0 shadow mb-4">
-                        <h2 class="h5 mb-4">Crear Minuta</h2>
+                        <h2 class="h5 mb-4">Minutas</h2>
                         <form name="myForm" action="/CrearMinuta" method="POST">
                             <div class="row">
                                 <div class="col-12 mb-3">
                                     <div>
-                                        <label for="nombreMinuta">Nombre Minuta</label>
-                                        <input class="form-control" id="nombreMinuta" type="text" placeholder="Nombre minuta" name= "nombreMinuta" required>
+
+                                      <div class="col-12 mb-4">
+                                        <div class="card border-0 shadow">
+                                          
+                                            <div class="table-responsive">
+                                                <table class="table align-items-center table-flush">
+                                                    <thead class="thead-light">
+                                                    <tr>
+                                                        <th class="border-bottom" scope="col">Nombre minuta</th>
+                                                        <th class="border-bottom" scope="col">Texto</th>
+                                                        <th class="border-bottom" scope="col">Nombre Creador</th>
+                                                        <th class="border-bottom" scope="col">Fecha Creacion</th>
+                                                        <th class="border-bottom" scope="col">Departamento</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      {% for minuta in minutas %}
+                                                    <tr class="showCursor" onclick="onClickRow(
+                                                      /{{minuta.getId()}}/
+                                                      )">
+                                                        <th class="text-gray-900" scope="row">
+                                                          {{ minuta.getNombreMinuta() }}
+                                                        </th>
+                                                        <td class="fw-bolder text-gray-500">
+                                                          {{ minuta.getTexto() }}
+                                                        </td>
+                                                        <td class="fw-bolder text-gray-500">
+                                                          {{ minuta.getNombreCreador() }}
+                                                        </td>
+                                                        <td class="fw-bolder text-gray-500">                                                            
+                                                          {{ minuta.getFechaCreacion() }}
+                                                        </td>
+                                                        <td class="fw-bolder text-gray-500">                                                            
+                                                          {{ minuta.getDepartamento() }}
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                      
+                                        
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row align-items-center">
-                                <div class="col-12 mb-3">
-                                    <div>
-                                      <label for="texto">Texto</label>
-                                      <textarea class="form-control textarea1" placeholder="Descripcion..." id="texto"  name= "texto" rows="10" maxlength = "2000"></textarea>
-                                  </div>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Guardar</button>
                             </div>
                         </form>
                     </div>
                     
                 </div>
                 
-                        
-                        
                     </div>
                 </div>
             </div>
@@ -448,6 +475,13 @@
 
 <!-- Volt JS -->
 <script src="../assets/js/volt.js"></script>
+
+<script>
+  function onClickRow(idMinuta) {
+    console.log(idMinuta.toString().replaceAll('/', ''));
+    window.location.replace("/minuta?id="+idMinuta.toString().replaceAll('/', ''));
+  }
+</script>
 
     
 </body>
