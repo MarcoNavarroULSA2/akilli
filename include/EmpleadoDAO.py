@@ -7,6 +7,20 @@ class EmpleadoDAO:
     def __init__(self):
         self.__tabla = "Empleado"
 
+    def updateUser(self, nombre, telefono, id):
+        try:
+            conn=cnx.mysql.connect()
+            cursor=conn.cursor()
+            query_select=('Update Empleado SET Nombre = %s, Telefono = %s  WHERE ID_LoginEmpleado = %s') 
+            values=(nombre, telefono, id) 
+            cursor.execute(query_select, values)
+            conn.commit()
+            print(cursor.rowcount, "record(s) affected")
+        except Exception as e:
+            return json.dumps({'error':str(e)})
+        finally: 
+            cursor.close()
+            conn.close()
 
     def finUser(self, idEmpleado):
         try:

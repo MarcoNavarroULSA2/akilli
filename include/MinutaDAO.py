@@ -11,13 +11,13 @@ class MinutaDAO:
             print('getMinutas')
             conn=cnx.mysql.connect()
             cursor=conn.cursor()
-            query_select=('SELECT id, nombreMinuta, texto, nombreCreador, fechaCreacion, frases FROM Minutas WHERE id =%s') 
+            query_select=('SELECT id, nombreMinuta, texto, nombreCreador, fechaCreacion, frases, departamento FROM Minutas WHERE id =%s') 
             values=(id) 
             cursor.execute(query_select, values)
             data=cursor.fetchall()
             listaVO=[]
             for fila in data:
-                vo = MinutaVO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5])
+                vo = MinutaVO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6])
                 listaVO.append(vo)
             return listaVO
         except Exception as e:
@@ -27,17 +27,18 @@ class MinutaDAO:
             conn.close()
 
 
-    def getMinutas(self):
+    def getMinutas(self, departamento):
         try:
             print('getMinutas')
             conn=cnx.mysql.connect()
             cursor=conn.cursor()
-            query_select=('SELECT id, nombreMinuta, texto, nombreCreador, fechaCreacion, frases FROM Minutas') 
-            cursor.execute(query_select)
+            query_select=('SELECT id, nombreMinuta, texto, nombreCreador, fechaCreacion, frases, departamento FROM Minutas WHERE departamento =%s') 
+            values=(departamento) 
+            cursor.execute(query_select, values)
             data=cursor.fetchall()
             listaVO=[]
             for fila in data:
-                vo = MinutaVO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5])
+                vo = MinutaVO(fila[0], fila[1], fila[2], fila[3], fila[4], fila[5], fila[6])
                 listaVO.append(vo)
             return listaVO
         except Exception as e:
@@ -50,13 +51,14 @@ class MinutaDAO:
         try:
             conn=cnx.mysql.connect()
             cursor=conn.cursor()
-            consulta=("INSERT INTO Minutas (nombreMinuta, texto, nombreCreador, fechaCreacion, frases)" "VALUES(%s,%s,%s,%s,%s)")          
+            consulta=("INSERT INTO Minutas (nombreMinuta, texto, nombreCreador, fechaCreacion, frases, departamento)" "VALUES(%s,%s,%s,%s,%s, %s)")          
             valores=(
             vo.getNombreMinuta(),
             vo.getTexto(),
             vo.getNombreCreador(),
             vo.getFechaCreacion(),
-            vo.getFrases()
+            vo.getFrases(),
+            vo.getDepartamento()
             )
             cursor.execute(consulta, valores)
             conn.commit()

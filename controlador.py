@@ -134,7 +134,26 @@ def settings():
     auth = checarusuario() 
     if auth == 0:
         return redirect(url_for('login'))
-    return render_template("settings.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])
+    return render_template("settings.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], empleado=getEmpleadoInfo())
+
+@app.route("/settings",methods=["POST"])
+def settings_2():
+    try:
+        empleadoDAO = EmpleadoDAO()       
+        data=request.form        
+        #Actualizar usuario
+        empleadoDAO.updateUser(data['nombre'], data['telefono'], getEmpleadoInfo()["_EmpleadoVO__idlogin"])
+
+        #Actualizar session
+        empleadoDAO = EmpleadoDAO() 
+        empleadosLista = empleadoDAO.finUser(getEmpleadoInfo()["_EmpleadoVO__idlogin"])
+        empleado = empleadosLista[0]
+        empleadoJson = json.dumps(empleado.__dict__)
+        session["user_info"] = empleadoJson
+
+        return redirect(url_for('settings'))
+    except Exception as e:
+     return json.dumps({'error':str(e)})      
 
 @app.route("/minutas")
 def minutas():
@@ -143,10 +162,10 @@ def minutas():
         return redirect(url_for('login'))
     try:
         minutaDAO = MinutaDAO()       
-        listado=minutaDAO.getMinutas()      
+        listado=minutaDAO.getMinutas(getEmpleadoInfo()["_EmpleadoVO__departamento"])      
         print('Len')
         print(listado.__len__())
-        print(listado[0]) 
+        #print(listado[0]) 
         return render_template("minutas.html", minutas=listado, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])
     except Exception as e:
      return json.dumps({'error':str(e)}) 
@@ -180,7 +199,7 @@ def crearMinuta_2():
         cliente = authenticate_client()
         frases = key_phrase_extraction_example(cliente, texto)
         
-        VO = MinutaVO(1, data['nombreMinuta'], data['texto'], empleado_object['_EmpleadoVO__nombre'], datetime.datetime.now(), frases) 
+        VO = MinutaVO(1, data['nombreMinuta'], data['texto'], empleado_object['_EmpleadoVO__nombre'], datetime.datetime.now(), frases,  empleado_object['_EmpleadoVO__departamento']) 
         #print("Va el Empleado con id "+ str(VO.getIdLogin()))
         minutaDAO.insert(VO)
         eventoDAO = EventoDAO()
