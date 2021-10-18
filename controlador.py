@@ -12,6 +12,8 @@ import smtplib
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
 from key import key_phrase_extraction_example, authenticate_client
+from include.eventoDAO import EventoDAO
+from include.eventoVO import EventoVO
 
 app = Flask(__name__, static_url_path='')
 app.secret_key = "1234"
@@ -82,6 +84,10 @@ def login2():
     session["user"] = usuario.getCorreo()
     session["user_info"] = empleadoJson
     session["auth"] = 1
+    eventoDAO = EventoDAO()
+    evento = "Iniciar Sesion"
+    eventoVO = EventoVO(evento, usuario.getId())
+    eventoDAO.insertEvento(eventoVO)
     return redirect(url_for('menu'))
     #except Exception as e:
      #  return json.dumps({'error':str(e)})
@@ -128,7 +134,7 @@ def settings():
     auth = checarusuario() 
     if auth == 0:
         return redirect(url_for('login'))
-    return render_template("settings.html")
+    return render_template("settings.html", nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"])
 
 @app.route("/minutas")
 def minutas():
@@ -154,7 +160,7 @@ def minuta():
     minutaDAO = MinutaDAO()       
     listado=minutaDAO.getMinuta(id)      
     minuta=listado[0]
-    return render_template("minuta.html",minuta=minuta) 
+    return render_template("minuta.html",minuta=minuta, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"]) 
 
 @app.route("/CrearMinuta")
 def Minuta():
@@ -177,6 +183,10 @@ def crearMinuta_2():
         VO = MinutaVO(1, data['nombreMinuta'], data['texto'], empleado_object['_EmpleadoVO__nombre'], datetime.datetime.now(), frases) 
         #print("Va el Empleado con id "+ str(VO.getIdLogin()))
         minutaDAO.insert(VO)
+        eventoDAO = EventoDAO()
+        evento = "Crear Minuta"
+        eventoVO = EventoVO(evento, empleado_object['_EmpleadoVO__idlogin'])
+        eventoDAO.insertEvento(eventoVO)
         return redirect(url_for('menu'))
     except Exception as e:
      return json.dumps({'error':str(e)})      
@@ -242,10 +252,17 @@ def resetpassword():
     
 @app.route("/logout")
 def logout():
-  session.clear()
-  session["user"] = "unknown"
-  session["auth"] = 0
-  return redirect(url_for('index'))
+    empleadoJson = session["user_info"]
+    empleado_object = json.loads(empleadoJson)
+    eventoDAO = EventoDAO()
+    evento = "Cerrar Sesion"
+    eventoVO = EventoVO(evento, empleado_object['_EmpleadoVO__idlogin'])
+    eventoDAO.insertEvento(eventoVO)
+    session.clear()
+    session["user"] = "unknown"
+    session["auth"] = 0
+  
+    return redirect(url_for('index'))
 
 
 
