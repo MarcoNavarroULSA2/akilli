@@ -18,12 +18,12 @@ def key_phrase_extraction_example(client, texto):
     try:
         documents = [texto]
 
-        response = client.extract_key_phrases(documents = documents)[0]
+        response = client.extract_key_phrases(documents = documents)[0] 
 
         if not response.is_error:
             frases = []
             print("\tKey Phrases:")
-            for phrase in response.key_phrases:
+            for phrase in response.key_phrases:  
                 print("\t\t", phrase)
                 frases.append(phrase)
             
@@ -31,7 +31,7 @@ def key_phrase_extraction_example(client, texto):
             print(frases_json)
 
 
-            return frases_json
+            return frases_json 
         else:
             print(response.id, response.error)
 
