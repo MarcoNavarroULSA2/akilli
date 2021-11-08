@@ -5,6 +5,21 @@ from include.MinutaVO import MinutaVO
 class MinutaDAO:
     def __init__(self):
         self.__tabla = "Minutas"
+
+    def updateMinuta(self, nombreMinuta, texto, id):
+        try:
+            conn=cnx.mysql.connect()
+            cursor=conn.cursor()
+            query_select=('Update Minutas SET nombreMinuta = %s, texto = %s  WHERE ID_LoginEmpleado = %s') 
+            values=(nombreMinuta, texto, id) 
+            cursor.execute(query_select, values)
+            conn.commit()
+            print(cursor.rowcount, "record(s) affected")
+        except Exception as e:
+            return json.dumps({'error':str(e)})
+        finally: 
+            cursor.close()
+            conn.close()
     
     def getMinuta(self, id):
         try:

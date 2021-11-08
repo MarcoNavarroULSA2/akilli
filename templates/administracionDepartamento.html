@@ -60,7 +60,7 @@
 <link type="text/css" href="../vendor/notyf/notyf.min.css" rel="stylesheet">
 
 <!-- Volt CSS -->
-<link type="text/css" href="../css/volt.css" rel="stylesheet">
+<link type="text/css" href="css/volt.css" rel="stylesheet">
 
 <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
 
@@ -334,59 +334,88 @@
             <div class="row">
                 <div class="col-12 col-xl-12">
                     <div class="card card-body border-0 shadow mb-4">
-                        <h2 class="h5 mb-4">Minutas</h2>
-                        <form name="myForm" action="/CrearMinuta" method="POST">
-                            <div class="row">
-                                <div class="col-12 mb-3">
-                                    <div>
+                        
+                    
+                      <h2 class="h5 mb-4">Minutas</h2>
 
-                                      <div class="col-12 mb-4">
-                                        <div class="card border-0 shadow">
-                                          
-                                            <div class="table-responsive">
-                                                <table class="table align-items-center table-flush">
-                                                    <thead class="thead-light">
-                                                    <tr>
-                                                        <th class="border-bottom" scope="col">Nombre minuta</th>
-                                                        <th class="border-bottom" scope="col">Texto</th>
-                                                        <th class="border-bottom" scope="col">Nombre Creador</th>
-                                                        <th class="border-bottom" scope="col">Fecha Creacion</th>
-                                                        <th class="border-bottom" scope="col">Departamento</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                      {% for minuta in minutas %}
-                                                    <tr class="showCursor" onclick="onClickRow(
-                                                      /{{minuta.getId()}}/
-                                                      )">
-                                                        <th class="text-gray-900" scope="row">
-                                                          {{ minuta.getNombreMinuta() }}
-                                                        </th>
-                                                        <td class="fw-bolder text-gray-500">
-                                                          {{ minuta.getTexto() }}
-                                                        </td>
-                                                        <td class="fw-bolder text-gray-500">
-                                                          {{ minuta.getNombreCreador() }}
-                                                        </td>
-                                                        <td class="fw-bolder text-gray-500">                                                            
-                                                          {{ minuta.getFechaCreacion() }}
-                                                        </td>
-                                                        <td class="fw-bolder text-gray-500">                                                            
-                                                          {{ minuta.getDepartamento() }}
-                                                        </td>
-                                                    </tr>
-                                                    {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                      
+
+                      <form name="myFormFiltro" action="/administracionDepartamento" method="POST">
+                      <div class="row">
+                        
+                        <label for="nombre">Filtro Departamento</label>
+                        <!--Departamento-->
+                        <div class="form-group col-4">
+                          <select name="departamento" class="form-control">
+                          <option value="Todos">Todos</option> 
+                          <option value="Negocio" {% if departamentoSeleccionado == "Negocio" %} selected="selected" {% endif %}>Negocio</option> 
+                          <option value="Tecnologia" {% if departamentoSeleccionado == "Tecnologia" %} selected="selected" {% endif %}>Tecnologia</option> 
+                          <option value="Contabilidad" {% if departamentoSeleccionado == "Contabilidad" %} selected="selected" {% endif %}>Contabilidad</option>
+                          <option value="Marketing" {% if departamentoSeleccionado == "Marketing" %} selected="selected" {% endif %}>Marketing</option>
+                          </select>
+                        </div>
+                      
+                        <div class="col-4">
+                          <button class="btn btn-gray-800 animate-up-2" type="submit">Buscar</button>
+                        </div>
+
+                      </div>
+                      </form>
+
+                        <br>
+                        <br>
+ 
+                        
+                          <div class="row">
+                              <div class="col-12 mb-3">
+                                  <div>
+
+                                    <div class="col-12 mb-4">
+                                      <div class="card border-0 shadow">
                                         
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                                          <div class="table-responsive">
+                                              <table class="table align-items-center table-flush">
+                                                  <thead class="thead-light">
+                                                  <tr>
+                                                      <th class="border-bottom" scope="col">Nombre minuta</th>
+                                                      <th class="border-bottom" scope="col">Texto</th>
+                                                      <th class="border-bottom" scope="col">Nombre Creador</th>
+                                                      <th class="border-bottom" scope="col">Fecha Creacion</th>
+                                                      <th class="border-bottom" scope="col">Departamento</th>
+                                                  </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    {% for minuta in minutas %}
+                                                  <tr class="showCursor" onclick="onClickRow(
+                                                    /{{minuta.getId()}}/
+                                                    )">
+                                                      <th class="text-gray-900" scope="row">
+                                                        {{ minuta.getNombreMinuta() }}
+                                                      </th>
+                                                      <td class="fw-bolder text-gray-500 tdDescription">
+                                                        {{ minuta.getFrases() }}
+                                                      </td>
+                                                      <td class="fw-bolder text-gray-500">
+                                                        {{ minuta.getNombreCreador() }}
+                                                      </td>
+                                                      <td class="fw-bolder text-gray-500">                                                            
+                                                        {{ minuta.getFechaCreacion() }}
+                                                      </td>
+                                                      <td class="fw-bolder text-gray-500">                                                            
+                                                        {{ minuta.getDepartamento() }}
+                                                      </td>
+                                                  </tr>
+                                                  {% endfor %}
+                                                  </tbody>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+                                    
+                                      
+                                  </div>
+                              </div>
+                          </div>
+                        
                     </div>
                     
                 </div>

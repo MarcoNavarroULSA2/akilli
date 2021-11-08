@@ -177,11 +177,28 @@ def minutas():
     
 @app.route("/minuta")
 def minuta():
+    print("Holaaa")
     auth = checarusuario() 
     if auth == 0:
         return redirect(url_for('login'))
     id = request.args.get('id', '')    
     minutaDAO = MinutaDAO()       
+    listado=minutaDAO.getMinuta(id)      
+    minuta=listado[0]
+    return render_template("minuta.html",minuta=minuta, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador()) 
+
+@app.route("/minuta", methods=["POST"])
+def minuta_2():
+    print("minuta_2")
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))
+    id = request.args.get('id', '')    
+    print("id")
+    print(id)
+    data=request.form    
+    minutaDAO = MinutaDAO()       
+    minutaDAO.updateMinuta(data['nombreMinuta'], data['texto'], id)
     listado=minutaDAO.getMinuta(id)      
     minuta=listado[0]
     return render_template("minuta.html",minuta=minuta, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador()) 
@@ -233,6 +250,28 @@ def administracionDepartamento():
         return render_template("administracionDepartamento.html", minutas=listado, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = departamento == "Admin")
     except Exception as e:
      return json.dumps({'error':str(e)}) 
+
+@app.route("/administracionDepartamento",methods=["POST"])
+def administracionDepartamento_2():
+    auth = checarusuario() 
+    if auth == 0:
+        return redirect(url_for('login'))
+    try:
+        data=request.form
+        minutaDAO = MinutaDAO()     
+        departamento = data['departamento']
+        print('Departamento')
+        print(departamento)
+        if departamento == 'Todos':
+            listado=minutaDAO.selectALL()  
+        else:
+            listado=minutaDAO.getMinutas(departamento)  
+        print('Len')
+        print(listado.__len__())
+        #print(listado[0]) 
+        return render_template("administracionDepartamento.html", minutas=listado, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador(), departamentoSeleccionado = departamento)
+    except Exception as e:
+     return json.dumps({'error':str(e)})  
 
 @app.route("/recuperarc",methods=["POST", "GET"])
 def recuperar():
