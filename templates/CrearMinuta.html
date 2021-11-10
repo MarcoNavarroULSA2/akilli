@@ -337,7 +337,7 @@
                 <div class="col-12 col-xl-12">
                     <div class="card card-body border-0 shadow mb-4">
                         <h2 class="h5 mb-4">Crear Minuta</h2>
-                        <form name="myForm" action="/CrearMinuta" method="POST">
+                        <form name="myForm" action="/CrearMinuta" method="POST" id="form">
                             <div class="row">
                                 <div class="col-12 mb-3">
                                     <div>
@@ -355,7 +355,7 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Guardar</button>
+                                <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit" id="guardarminuta">Guardar</button>
                             </div>
                         </form>
                     </div>
@@ -449,7 +449,36 @@
 <!-- Volt JS -->
 <script src="../assets/js/volt.js"></script>
 
-    
+<script>
+
+
+document.getElementById('form').addEventListener('submit', function () {const notyf = new Notyf({
+  duration: 4000,
+  position: {
+    x: 'center',
+    y: 'top',
+  },types: [
+    {type: 'success',
+    background: '#0948B3',
+    icon: {
+      className: 'fas fa-times',
+      tagName: 'span',
+      color: '#fff'
+    },
+    dismissible: false
+  }
+]
+});
+notyf.open({
+  type: 'success',
+  message:'Se creo la minuta correctamente'
+});
+});
+
+
+
+</script>
+ 
 </body>
 
 </html>
