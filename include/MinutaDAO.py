@@ -10,7 +10,7 @@ class MinutaDAO:
         try:
             conn=cnx.mysql.connect()
             cursor=conn.cursor()
-            query_select=('Update Minutas SET nombreMinuta = %s, texto = %s  WHERE ID_LoginEmpleado = %s') 
+            query_select=('Update Minutas SET nombreMinuta = %s, texto = %s  WHERE id = %s') 
             values=(nombreMinuta, texto, id) 
             cursor.execute(query_select, values)
             conn.commit()

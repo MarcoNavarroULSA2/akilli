@@ -158,7 +158,7 @@ def settings_2():
 
         return redirect(url_for('settings'))
     except Exception as e:
-     return json.dumps({'error':str(e)})      
+        return json.dumps({'error':str(e)})           
 
 @app.route("/minutas")
 def minutas():
@@ -177,7 +177,7 @@ def minutas():
     
 @app.route("/minuta")
 def minuta():
-    print("Holaaa")
+    print("Holaaa minuta normal1")
     auth = checarusuario() 
     if auth == 0:
         return redirect(url_for('login'))
@@ -189,19 +189,17 @@ def minuta():
 
 @app.route("/minuta", methods=["POST"])
 def minuta_2():
-    print("minuta_2")
-    auth = checarusuario() 
-    if auth == 0:
-        return redirect(url_for('login'))
-    id = request.args.get('id', '')    
-    print("id")
-    print(id)
-    data=request.form    
-    minutaDAO = MinutaDAO()       
-    minutaDAO.updateMinuta(data['nombreMinuta'], data['texto'], id)
-    listado=minutaDAO.getMinuta(id)      
-    minuta=listado[0]
-    return render_template("minuta.html",minuta=minuta, nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador()) 
+    try:
+        auth = checarusuario() 
+        if auth == 0:
+            return redirect(url_for('login'))
+        data=request.form        
+        minutaDAO = MinutaDAO()     
+        id = data["id"]  
+        minutaDAO.updateMinuta(data['nombreMinuta'], data['texto'], id)
+        return redirect(request.url+"?id="+id)
+    except Exception as e:
+        return json.dumps({'error':str(e)})  
 
 @app.route("/CrearMinuta")
 def Minuta():
