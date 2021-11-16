@@ -132,7 +132,25 @@ def menu():
     print (auth)
     if auth == 0:
         return redirect(url_for('login'))    
-    return render_template("dashboard/menu.html",  nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador())  
+    
+    #Consulta Equipo
+    empleadoDAO = EmpleadoDAO() 
+    empleadosLista = empleadoDAO.findMiembrosMismoDepartamento(getEmpleadoInfo()["_EmpleadoVO__departamento"])
+
+    #Consulta Minutas
+    minutaDAO = MinutaDAO()     
+    listadoMinutas=minutaDAO.selectALL()  
+
+    fechaActual = datetime.datetime.now()
+    
+    fechaActual.month
+    minutasMes = 0
+
+    for minuta in listadoMinutas:
+        if minuta.getFechaCreacion().year == fechaActual.year and minuta.getFechaCreacion().month == fechaActual.month:
+            minutasMes = minutasMes + 1
+            
+    return render_template("dashboard/menu.html",  nombreUsuario=getEmpleadoInfo()["_EmpleadoVO__nombre"], admin = esAdministrador(), equipo =empleadosLista, minutasCount = listadoMinutas.__len__(), minutasMes = minutasMes)  
 
 @app.route("/settings")
 def settings():

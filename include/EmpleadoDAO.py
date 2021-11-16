@@ -7,6 +7,25 @@ class EmpleadoDAO:
     def __init__(self):
         self.__tabla = "Empleado"
 
+    def findMiembrosMismoDepartamento(self, departamento):
+        try:
+            conn=cnx.mysql.connect()
+            cursor=conn.cursor()
+            query_select=('SELECT Nombre, Telefono, Empresa, ID_LoginEmpleado, departamento FROM Empleado WHERE departamento = %s') 
+            values=(departamento) 
+            cursor.execute(query_select, values)
+            data=cursor.fetchall()
+            listaVO=[]
+            for fila in data:
+                vo = EmpleadoVO(1, fila[0], '', fila[1], fila[2], fila[3], fila[4])
+                listaVO.append(vo)
+            return listaVO
+        except Exception as e:
+            return json.dumps({'error':str(e)})
+        finally: 
+            cursor.close()
+            conn.close()
+
     def updateUser(self, nombre, telefono, id):
         try:
             conn=cnx.mysql.connect()
