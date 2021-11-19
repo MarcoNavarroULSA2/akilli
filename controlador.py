@@ -347,7 +347,35 @@ def resetpassword():
     else:
      return render_template("cambiocontrasena.html")    
 
+@app.route("/api", methods = ['POST', 'GET'])
+def consulta():
+    try:
+        idEmpleado = request.args.get("Empleado")
+        dao = EmpleadoDAO
+        Empleado = dao.finUser(idEmpleado)
+        if not Empleado:
+            informacion = {"id": '',
+                    "Nombre": 'No existe usuario con el nombre que has ingresado',
+                    "Telefono": '',
+                    "Empresa":'',
+                    "ID_LoginEmpleado":'',
+                    "departamento": ''
+            }
+            return informacion
+        else:
+            informacion = {"id": Empleado[0].getId(),
+                        "Nombre": Empleado[0].getNombre(),
+                        "Telefono": Empleado[0].getTelefono(),
+                        "Empresa":Empleado[0].getEmpresa(),
+                        "ID_LoginEmpleado":Empleado[0].getIdLogin(),
+                        "departamento": Empleado[0].getDepartamento()
+            }
+            return informacion
+    except Exception as e:
+        return json.dumps ({"error": str(e)})
     
+
+
 @app.route("/logout")
 def logout():
     empleadoJson = session["user_info"]
